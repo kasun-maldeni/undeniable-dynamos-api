@@ -50,6 +50,6 @@ app.post('/upload_logo', upload.single('logo'), (req, res) => {
   cloudinary.v2.uploader.upload(req.file.path, { folder: 'UndeniableDynamos' }, (err, img) => {
     pool
       .query("INSERT INTO brands(company_name, company_url, user_type, involvement, logo_url) VALUES ($1, $2, $3, $4, $5);", [req.body.companyName, req.body.companyUrl, req.body.userType, req.body.involvement, img.secure_url])
-      .then(() => res.redirect('http://localhost:3000'))
+      .then(() => res.redirect(clientSideURL))
   })
 })
